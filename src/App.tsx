@@ -5,7 +5,7 @@ import { PROFILE_EN } from './profile.en'
 import './App.css'
 
 // Daftar bahasa yang tersedia. Bahasa pertama menjadi default.
-const LANGUAGES = { id: PROFILE, en: PROFILE_EN } as const
+const LANGUAGES = { en: PROFILE_EN, id: PROFILE } as const
 type Lang = keyof typeof LANGUAGES
 
 const ProfileContext = createContext<ProfileConfig>(PROFILE)
@@ -36,7 +36,7 @@ function writeStorage(key: string, value: string) {
 function useLanguage() {
   const [lang, setLang] = useState<Lang>(() => {
     const saved = readStorage('lang')
-    return saved && Object.hasOwn(LANGUAGES, saved) ? (saved as Lang) : 'id'
+    return saved && Object.hasOwn(LANGUAGES, saved) ? (saved as Lang) : 'en'
   })
   const profile = LANGUAGES[lang]
 
@@ -47,7 +47,7 @@ function useLanguage() {
     document.querySelector('meta[name="description"]')?.setAttribute('content', profile.seo.description)
   }, [lang, profile])
 
-  const toggle = () => setLang((l) => (l === 'id' ? 'en' : 'id'))
+  const toggle = () => setLang((l) => (l === 'en' ? 'id' : 'en'))
   return { lang, profile, toggle }
 }
 

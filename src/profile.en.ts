@@ -8,7 +8,7 @@
 //  jadi cukup diubah di satu tempat saja.
 // ============================================================
 
-import { PROFILE as ID, type ProfileConfig } from './profile'
+import { PROFILE as ID, type ProfileConfig } from './profile.ts'
 
 const [cekat, waCs, telegram, portfolio] = ID.projects.items
 const [expCekat, expMart, expDropship, expUni] = ID.experience

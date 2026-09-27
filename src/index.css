@@ -1,35 +1,61 @@
 :root {
-  --bg: #faf8f5;
-  --bg-soft: #f2eee8;
-  --surface: #ffffff;
-  --text: #57534e;
-  --text-h: #1c1917;
-  --muted: #8a847d;
-  --border: #e7e2da;
-  --accent: #c2410c;
-  --accent-soft: rgba(194, 65, 12, 0.1);
+  --bg: #eef1f8;
+  --bg-soft: rgba(255, 255, 255, 0.45);
+  --surface: rgba(255, 255, 255, 0.5);
+  --text: #3c3c43;
+  --text-h: #0b0b0f;
+  --muted: #6e6e78;
+  --border: rgba(255, 255, 255, 0.7);
+  --divider: rgba(60, 60, 67, 0.14);
+  --accent: #5b21b6;
+  --accent-soft: rgba(91, 33, 182, 0.12);
   --on-accent: #ffffff;
-  --shadow: 0 1px 2px rgba(28, 25, 23, 0.04), 0 8px 24px rgba(28, 25, 23, 0.06);
+  --shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 12px 40px rgba(15, 23, 42, 0.1);
 
-  --serif: 'Instrument Serif', Georgia, serif;
-  --sans: 'Inter', system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+  /* Material kaca */
+  --glass-fill: linear-gradient(145deg, rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0.28));
+  --glass-edge: rgba(255, 255, 255, 0.75);
+  --glass-hi: rgba(255, 255, 255, 0.95);
+  --glass-lo: rgba(255, 255, 255, 0.25);
+  --glass-shadow: 0 10px 40px rgba(30, 41, 80, 0.12);
+  --glass-blur: blur(28px) saturate(190%);
+
+  /* Gradasi latar di balik kaca */
+  --blob-1: #c4b5fd;
+  --blob-2: #a5b4fc;
+  --blob-3: #fda4af;
+  --blob-4: #86efac;
+
+  --sans: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', system-ui, 'Segoe UI', Roboto, sans-serif;
+  --mono: 'SF Mono', 'JetBrains Mono', ui-monospace, Consolas, monospace;
 
   color-scheme: light;
 }
 
 :root[data-theme='dark'] {
-  --bg: #121110;
-  --bg-soft: #1b1a18;
-  --surface: #1e1c1a;
-  --text: #a8a29e;
-  --text-h: #f5f5f4;
-  --muted: #78716c;
-  --border: #2c2926;
-  --accent: #fb923c;
-  --accent-soft: rgba(251, 146, 60, 0.12);
-  --on-accent: #1c1917;
-  --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.35);
+  --bg: #05060a;
+  --bg-soft: rgba(255, 255, 255, 0.08);
+  --surface: rgba(255, 255, 255, 0.06);
+  --text: #c7c7cc;
+  --text-h: #ffffff;
+  --muted: #8e8e93;
+  --border: rgba(255, 255, 255, 0.14);
+  --divider: rgba(255, 255, 255, 0.1);
+  --accent: #8b5cf6;
+  --accent-soft: rgba(139, 92, 246, 0.2);
+  --on-accent: #ffffff;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 16px 48px rgba(0, 0, 0, 0.5);
+
+  --glass-fill: linear-gradient(145deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.04));
+  --glass-edge: rgba(255, 255, 255, 0.16);
+  --glass-hi: rgba(255, 255, 255, 0.3);
+  --glass-lo: rgba(255, 255, 255, 0.05);
+  --glass-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
+
+  --blob-1: #4c1d95;
+  --blob-2: #3730a3;
+  --blob-3: #be185d;
+  --blob-4: #0f766e;
 
   color-scheme: dark;
 }
@@ -42,17 +68,41 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 80px;
+  scroll-padding-top: 100px;
 }
 
 body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  font: 17px/1.65 var(--sans);
+  font: 17px/1.6 var(--sans);
+  letter-spacing: -0.01em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: background-color 0.3s, color 0.3s;
+  transition: background-color 0.4s, color 0.4s;
+}
+
+/* Latar gradasi yang bergerak pelan, supaya efek kaca punya sesuatu untuk dibiaskan */
+body::before {
+  content: '';
+  position: fixed;
+  inset: -20%;
+  z-index: -1;
+  background:
+    radial-gradient(38% 42% at 18% 22%, var(--blob-1), transparent 70%),
+    radial-gradient(34% 40% at 82% 18%, var(--blob-2), transparent 70%),
+    radial-gradient(40% 44% at 75% 78%, var(--blob-3), transparent 70%),
+    radial-gradient(36% 40% at 22% 82%, var(--blob-4), transparent 70%);
+  filter: blur(40px);
+  opacity: 0.75;
+  animation: drift 28s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes drift {
+  to {
+    transform: translate3d(3%, -4%, 0) rotate(8deg) scale(1.08);
+  }
 }
 
 h1,
@@ -60,7 +110,7 @@ h2,
 h3 {
   color: var(--text-h);
   margin: 0;
-  line-height: 1.15;
+  line-height: 1.1;
 }
 
 p {
@@ -86,7 +136,7 @@ ol {
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
-  border-radius: 4px;
+  border-radius: 6px;
 }
 
 @media (prefers-reduced-motion: reduce) {

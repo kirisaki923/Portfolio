@@ -1,11 +1,11 @@
 import react from '@vitejs/plugin-react'
 import { defineConfig, type Plugin } from 'vite'
-import { PROFILE } from './src/profile.ts'
+import { PROFILE_EN as PROFILE } from './src/profile.en.ts'
 
 const escapeHtml = (s: string) =>
   s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 
-// Mengisi %SEO_TITLE%, %SEO_DESCRIPTION%, %SEO_LANG% di index.html dari PROFILE.seo.
+// Mengisi %SEO_TITLE%, %SEO_DESCRIPTION%, %SEO_LANG% di index.html dari PROFILE_EN.seo (bahasa default).
 function profileSeo(): Plugin {
   return {
     name: 'profile-seo',
