@@ -34,7 +34,7 @@
 
 /* ---------- Material kaca (Liquid Glass) ---------- */
 
-.header-inner,
+.header-inner::after,
 .icon-btn,
 .btn-ghost,
 .status,
@@ -79,6 +79,7 @@
 }
 
 .header-inner {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -86,10 +87,20 @@
   max-width: 1032px;
   padding: 0 10px 0 22px;
   border-radius: 999px;
+}
+
+/* Kaca header ada di lapisan terpisah (bukan di .header-inner sendiri),
+   supaya menu mobile di dalamnya tetap bisa mem-blur konten halaman. */
+.header-inner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
   transition: box-shadow 0.3s;
 }
 
-.header.scrolled .header-inner {
+.header.scrolled .header-inner::after {
   box-shadow:
     inset 0 1px 0 var(--glass-hi),
     inset 0 -1px 0 var(--glass-lo),
@@ -198,39 +209,100 @@
     padding-left: 20px;
   }
 
+  /* Menu pop-up ala iOS: panel kaca tebal yang "tumbuh" dari tombol menu */
   .nav {
     position: absolute;
     top: calc(100% + 10px);
-    left: 0;
     right: 0;
+    width: min(280px, calc(100vw - 24px));
     flex-direction: column;
-    gap: 2px;
-    padding: 10px;
-    border-radius: 28px;
-    background: var(--glass-fill);
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
+    gap: 0;
+    padding: 8px;
+    border-radius: 30px;
+    background: var(--menu-fill);
+    backdrop-filter: blur(40px) saturate(200%);
+    -webkit-backdrop-filter: blur(40px) saturate(200%);
     border: 1px solid var(--glass-edge);
     box-shadow:
       inset 0 1px 0 var(--glass-hi),
-      var(--shadow);
+      inset 0 -1px 0 var(--glass-lo),
+      0 24px 60px rgba(15, 10, 40, 0.28);
     opacity: 0;
-    transform: translateY(-8px) scale(0.97);
-    transform-origin: top center;
+    transform: scale(0.6);
+    transform-origin: calc(100% - 32px) -10px;
+    filter: blur(6px);
     pointer-events: none;
-    transition: opacity 0.2s, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition:
+      opacity 0.2s ease,
+      filter 0.25s ease,
+      transform 0.45s cubic-bezier(0.32, 1.4, 0.5, 1);
+  }
+
+  .nav::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(180deg, var(--glass-hi), transparent 30%);
+    opacity: 0.4;
+    pointer-events: none;
   }
 
   .nav.open {
     opacity: 1;
     transform: none;
+    filter: none;
     pointer-events: auto;
   }
 
   .nav a {
-    padding: 13px 18px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px;
     font-size: 17px;
-    border-radius: 18px;
+    font-weight: 500;
+    color: var(--text-h);
+    border-radius: 22px;
+    transition: background-color 0.2s, transform 0.2s;
+  }
+
+  /* Garis pemisah tipis antar item, seperti daftar di iOS */
+  .nav a + a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 18px;
+    right: 18px;
+    height: 1px;
+    background: var(--divider);
+  }
+
+  .nav a.active::before,
+  .nav a.active + a::before {
+    display: none;
+  }
+
+  .nav a:active {
+    background: var(--bg-soft);
+    transform: scale(0.98);
+  }
+
+  .nav a.active {
+    color: var(--accent);
+    font-weight: 600;
+    background: var(--accent-soft);
+    box-shadow: inset 0 1px 0 var(--glass-hi);
+  }
+
+  .nav a.active::after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent);
   }
 }
 

@@ -19,6 +19,7 @@
   --glass-lo: rgba(255, 255, 255, 0.25);
   --glass-shadow: 0 10px 40px rgba(30, 41, 80, 0.12);
   --glass-blur: blur(28px) saturate(190%);
+  --menu-fill: linear-gradient(160deg, rgba(255, 255, 255, 0.82), rgba(245, 240, 255, 0.62));
 
   /* Gradasi latar di balik kaca */
   --blob-1: #c4b5fd;
@@ -51,6 +52,7 @@
   --glass-hi: rgba(255, 255, 255, 0.3);
   --glass-lo: rgba(255, 255, 255, 0.05);
   --glass-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
+  --menu-fill: linear-gradient(160deg, rgba(58, 52, 78, 0.72), rgba(24, 22, 34, 0.62));
 
   --blob-1: #4c1d95;
   --blob-2: #3730a3;
