@@ -11,10 +11,8 @@ type Lang = keyof typeof LANGUAGES
 const ProfileContext = createContext<ProfileConfig>(PROFILE)
 const useProfile = () => useContext(ProfileContext)
 
-// Menu navigasi & nomor section mengikuti urutan PROFILE.sections.
+// Menu navigasi mengikuti urutan PROFILE.sections.
 const navLinks = (p: ProfileConfig): Section[] => Object.values(p.sections)
-const sectionIndex = (p: ProfileConfig, section: Section) =>
-  String(navLinks(p).indexOf(section) + 1).padStart(2, '0')
 
 function readStorage(key: string) {
   try {
@@ -244,10 +242,8 @@ function Hero() {
 }
 
 function SectionTitle({ section }: { section: Section }) {
-  const p = useProfile()
   return (
     <div className="section-title reveal">
-      <span className="section-index">{sectionIndex(p, section)}</span>
       <h2>{section.title}</h2>
     </div>
   )
@@ -314,7 +310,6 @@ function Projects() {
       <div className="projects-grid">
         {projects.items.map((project, i) => (
           <article key={i} className="card project reveal">
-            <span className="project-number">{String(i + 1).padStart(2, '0')}</span>
             <h3>{project.title}</h3>
             <p className="project-role">{project.role}</p>
             <p>{project.description}</p>
@@ -374,13 +369,11 @@ function Experience() {
 }
 
 function Contact() {
-  const p = useProfile()
-  const { contact, sections } = p
+  const { contact, sections } = useProfile()
 
   return (
     <section id={sections.contact.id} className="section container">
       <div className="contact card reveal">
-        <span className="section-index">{sectionIndex(p, sections.contact)}</span>
         <h2>{sections.contact.title}</h2>
         <p>{contact.text}</p>
         <a href={`mailto:${contact.email}`} className="btn btn-primary btn-lg">
