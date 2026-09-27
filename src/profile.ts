@@ -96,7 +96,7 @@ export const PROFILE: Readonly<ProfileConfig> = Object.freeze({
   sections: {
     about: { id: 'tentang', nav: 'Tentang', title: 'Tentang Saya' },
     skills: { id: 'keahlian', nav: 'Keahlian', title: 'Keahlian' },
-    projects: { id: 'proyek', nav: 'Proyek', title: 'Proyek Pilihan' },
+    projects: { id: 'project', nav: 'Project', title: 'Project' },
     experience: { id: 'pengalaman', nav: 'Pengalaman', title: 'Pengalaman' },
     contact: { id: 'kontak', nav: 'Kontak', title: 'Mari bekerja sama' },
   },
