@@ -216,7 +216,7 @@ export const PROFILE: Readonly<ProfileConfig> = Object.freeze({
         role: 'Developer',
         description:
           'Website portfolio pribadi yang dibuat untuk menampilkan profil, pengalaman, pendidikan, keahlian, dan project.',
-        tags: ['React', 'TypeScript', 'Vite'],
+        tags: ['React', 'TypeScript', 'Vercel'],
         // repo: 'https://github.com/username/portfolio',
       },
     ],
