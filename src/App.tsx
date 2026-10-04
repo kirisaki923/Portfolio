@@ -152,9 +152,36 @@ function Header({ lang, onToggleLang }: { lang: Lang; onToggleLang: () => void }
   return (
     <header className={`header ${scrolled ? 'scrolled' : ''}`}>
       <div className="container header-inner">
-        <a href="#beranda" className="logo" onClick={() => setMenuOpen(false)}>
-          {p.personal.initials}
-          <span className="logo-dot">.</span>
+        <a
+          href="#beranda"
+          className="logo"
+          aria-label={p.personal.name}
+          onClick={() => setMenuOpen(false)}
+        >
+          <svg className="logo-mark" viewBox="0 0 40 40" aria-hidden="true">
+            <defs>
+              <linearGradient id="logo-bg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stopColor="#8b5cf6" />
+                <stop offset="0.55" stopColor="#6366f1" />
+                <stop offset="1" stopColor="#ec4899" />
+              </linearGradient>
+              <linearGradient id="logo-shine" x1="0" y1="0" x2="0" y2="40" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stopColor="#fff" stopOpacity="0.35" />
+                <stop offset="0.5" stopColor="#fff" stopOpacity="0" />
+              </linearGradient>
+            </defs>
+            <rect width="40" height="40" rx="11" fill="url(#logo-bg)" />
+            <rect width="40" height="40" rx="11" fill="url(#logo-shine)" />
+            {/* Monogram HA: kaki kanan H sekaligus kaki kiri A */}
+            <path
+              d="M10 11.5V28.5M10 20.5H26.2M16.5 28.5L23 11.5L29.5 28.5"
+              fill="none"
+              stroke="#fff"
+              strokeWidth="3.2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
         </a>
 
         <nav className={`nav ${menuOpen ? 'open' : ''}`} aria-label={p.ui.navLabel}>
